@@ -16,24 +16,35 @@ class myUtil {
 public:
 // Enter your code here for swap() function
 
-    void swap(int n1, int n2) {
-
+    void myswap(int &n1, int &n2) {
+        int temp;
+        temp = n1;
+        n1 = n2;
+        n2 = temp;
     }
 
 
     void passByRef1(int &Sum2) {
         ifstream inputFile;
         int iToken = 0;
-        inputFile.open("Integers.txt");
+        inputFile.open("/Users/chris/CLionProjects/CS165/passByReference/Integers.txt");
         inputFile.seekg(0);
         while (inputFile >> iToken) {
             Sum2 = Sum2 + iToken;
         }
         inputFile.close();
-    }// Enter your code here for passByRef2()}
+    }
 
-    void passByRef2(int &Sum2) {
-
+    // Enter your code here for passByRef2()}
+    void passByRef2(int *Sum2Ptr) {
+        ifstream inputFile;
+        int iToken = 0;
+        inputFile.open("/Users/chris/CLionProjects/CS165/passByReference/Integers.txt");
+        inputFile.seekg(0);
+        while (inputFile >> iToken) {
+            *Sum2Ptr = *Sum2Ptr + iToken;
+        }
+        inputFile.close();
     }
 };
 
@@ -41,10 +52,12 @@ int main() {
         int sum = 0, n1 = 1, n2 = 2;
         myUtil mu1;
         cout << "Before -- n1: " << n1 << "; n2: " << n2 << endl;
-        mu1.swap(n1, n2);
+        mu1.myswap(n1, n2);
         cout << "After  -- n1: " << n1 << "; n2: " << n2 << endl;
         mu1.passByRef1(sum);
         cout << "The sum of the integers are: " << sum << endl;
+        cout << "Set sum back to 0 to test pointer" << endl;
+        sum = 0;
         mu1.passByRef2(&sum);
         cout << "The sum of the integers are: " << sum << endl;
         return 0;
