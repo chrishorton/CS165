@@ -67,7 +67,6 @@ int main() {
         cout << "values[" << m << "]" << " = " << &values << endl;
     }
 
-
     return 0;
 
 }

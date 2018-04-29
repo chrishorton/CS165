@@ -50,9 +50,5 @@ int main(){
 
     cout << search(arrInt, 6) << endl;
 
-    double thisisadouble;
-    float thisisafloat;
-
-    cout << sizeof(thisisadouble) << ": Size of double" << "\n" << sizeof(thisisafloat) << ": Size of float";
     return 0;
 }

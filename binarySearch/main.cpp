@@ -1,66 +1,117 @@
 #include <iostream>
+#include <fstream>
+#include <iomanip>
 
 using namespace std;
 
 
-int binarySearch(int arr[], int size, int target){
-    int first = 0;
-    int last = size-1;
-    int middle = (first+last)/2;
 
-    while ((first < last)) {
-        middle = (first+last)/2;
-        cout << middle << endl;
+struct Person {
 
-        if (arr[middle]==target){
-            cout << "Found at index: " << middle << endl;
-            return middle;
-        } else {
-            if (arr[middle] > target){
-                last = middle-1;
-            } else {
-                first = middle+1;
+    int ID = -1;
+
+    string Name;
+
+    string PhoneNo;
+
+};
+
+void BubbleSort(Person arr[], int SIZE) {
+    /// TO DO: Add your code here
+
+    for (int i = 0; i < SIZE-1; i++) {
+        for (int j = 0; j < SIZE-i; j++) {
+            if (arr[j].ID > arr[j+i].ID) {
+                Person temp = arr[j];
+                arr[j] = arr[j+i];
+                arr[j+i] = temp;
             }
         }
     }
+
+    // Function is void no need to return.
+//    return;
+
 }
 
-int selectionSort(int arr[], int size, int target){
 
-}
 
-    int main() {
-        fstream inputFile;
-        string fileName = "person.txt";
-        const int SIZE = 29;
-        Person arr[SIZE];
-        int target = 22222;
-        int ID2 = 0;
-        string Name2, PhoneNo2 = " ";
-        inputFile.open(fileName.c_str(), ios::in); if (inputFile.is_open()){
-            int personCount = 0;
+int SequentialSearch(Person arr[], int SIZE, int target) {
 
-            while(!inputFile.eof()){
-                inputFile >> ID2 >> Name2 >> PhoneNo2; arr[personCount].ID = ID2; arr[personCount].Name = Name2; arr[personCount].PhoneNo = PhoneNo2; personCount++;
-            }
-            inputFile.close(); }
-        else {
-            cout << "File cannot be opened." << endl;
+    int index =-1;
+
+    /// TO DO: Add your code here
+
+    for (int i = 0; i < SIZE; ++i) {
+        int currentID = arr[i].ID;
+        if (currentID == target) {
+            return i;
         }
-        cout << "Before Bubble Sort" << endl; displayAll(arr, personCount); BubbleSort(arr, personCount);
-        cout << "After Bubble Sort" << endl; displayAll(arr, personCount);
-        int ii = SequentialSearch(arr, personCount, target); if the target is found.
-/// Return the index of the record
-
-        if (ii != -1) {
-            cout << "Display personal information of 22222 " << endl;
-            displayPersonInfo(arr, personCount, ii); }
-/// Read data from input file to the array again so that the IDs are not sorted.
-        cout << "Before Selection Sort" << endl; displayAll(arr, personCount); SelectionSort(arr, personCount);
-        cout << "After Selection Sort" << endl; displayAll(arr, personCount);
-        ii = binarySearch(arr, personCount, target);
-        if (ii != -1) {
-            cout << "Display personal information of 22222 " << endl;
-            displayPersonInfo(arr, personCount, ii); }
-        return 0;
     }
+
+    return index;
+
+}
+
+
+
+void displayPersonInfo(Person arr[], int SIZE, int ii) {
+// Why is size needed?
+
+// ii is the index of the person to be displayed
+    Person p = arr[ii];
+    /// TO DO: Add your code here
+    cout << "ID: " << p.ID << "\n" << "Name: " << p.Name << "\n" << "Phone number: " << p.PhoneNo << endl;
+}
+
+
+
+int main() {
+
+    const int SIZE = 29;
+
+    Person arr[SIZE];
+
+    int target = 22222;
+
+    /// Add your code here to load the data
+
+    string filename = "/Users/chris/CLionProjects/CS165/quiztwo/person.txt";
+
+    // Declare vars for input
+    int ID=0;
+    string Name;
+    string phoneNumber;
+
+    // Begin loading input data to Person arr
+    fstream inputFile;
+
+    inputFile.open(filename.c_str(), ios::in);
+    int count = 0;
+
+    if(inputFile.good()) {
+        while (!inputFile.eof()) {
+            inputFile >> ID >> Name >> phoneNumber;
+            Person p;
+            p.ID = ID;
+            p.Name = Name;
+            p.PhoneNo = phoneNumber;
+            arr[count] = p;
+            count++;
+        }
+    }
+
+    // sort the array by ID
+    BubbleSort(arr, SIZE);
+
+    // Search for an ID
+    // PARAMS: arr: arr of type Person, SIZE of that array, target: ID to be searched for
+    int ii = SequentialSearch(arr, SIZE, target); /// Return the index of the record if the target is found.
+
+    if (ii != -1)
+        // ii is index of person to display
+        displayPersonInfo(arr, SIZE, ii);
+
+    return 0;
+
+}
