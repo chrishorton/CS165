@@ -11,10 +11,6 @@ iostream
 -
 fstream
 -
-math.h
--
 iomanip
--
-assert.h
 -
 

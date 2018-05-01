@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <math.h>
 #include <iomanip>
-#include <assert.h>
 
 
 using namespace std;
@@ -170,7 +168,6 @@ int main() {
     }
     else if (menuSelection == 'A' || menuSelection == 'a')
     {
-/// displayAll
         displayAll(arrStu);
     }
     else if (menuSelection == 'Q' || menuSelection == 'q')
