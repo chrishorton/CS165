@@ -15,22 +15,6 @@ struct Person {
 
 };
 
-void selectionSort(Person array[], int size){
-    int start, minIndex, minValue;
-    for (start = 0; start < (size-1); start++) {
-        minIndex = start;
-        minValue = array[start].ID;
-        for (int i = start+1; i < size; ++i) {
-            if (array[i].ID < minValue) {
-                minValue = array[i].ID;
-                minIndex = i;
-            }
-        }
-        // Swap values
-        array[minIndex] = array[start];
-        array[start].ID = minValue;
-    }
-}
 
 
 void displayPersonInfo(Person arr[], int SIZE, int ii) {
@@ -70,7 +54,47 @@ void displayAll(Person arr[], int SIZE){
     }
 }
 
-void BubbleSort(Person arr[], int SIZE){
+void selectionSort(Person array[], int size){
+    int start, minIndex, minValue;
+    for (start = 0; start < (size-1); start++) {
+        minIndex = start;
+        minValue = array[start].ID;
+        for (int i = start+1; i < size; ++i) {
+            if (array[i].ID < minValue) {
+                minValue = array[i].ID;
+                minIndex = i;
+            }
+        }
+        // Swap values
+        array[minIndex] = array[start];
+        array[start].ID = minValue;
+    }
+    displayAll(array, 16);
+}
+
+
+int binarySearch(Person arr[], int l, int r, int x) {
+    if (r >= l) {
+        int mid = (r - l)/2;
+
+        if (arr[mid].ID == x){
+            return mid;
+        }
+
+        if (arr[mid].ID > x) {
+            return binarySearch(arr, l, mid-1, x);
+        }
+
+        return binarySearch(arr, mid+1, r, x);
+    }
+
+    // We reach here when element is not
+    // present in array
+    return -1;
+}
+
+
+Person * BubbleSort(Person arr[], int SIZE){
 
     bool swap;
     Person temp;
@@ -84,10 +108,12 @@ void BubbleSort(Person arr[], int SIZE){
                 arr[i + 1] = temp;
                 swap = true;
             }
-
         }
     } while (swap);
+
+    displayAll(arr,16);
 }
+
 
 int main() {
     fstream inputFile;
@@ -100,7 +126,6 @@ int main() {
     inputFile.open(fileName.c_str(), ios::in);
 
     if (inputFile.is_open()) {
-        int personCount = 0;
 
         while (!inputFile.eof()) {
             inputFile >> ID2 >> Name2 >> PhoneNo2;
@@ -113,27 +138,35 @@ int main() {
     } else {
         cout << "File cannot be opened." << endl;
     }
-    cout << "Before Bubble Sort" << endl;
+
+    cout << endl << "Before Bubble Sort" << endl;
 
     displayAll(arr, personCount);
+
+    cout << endl << "After Bubble Sort" <<  endl;
+
     BubbleSort(arr, personCount);
-    cout << "After Bubble Sort" << endl;
-    displayAll(arr, personCount);
     int ii = SequentialSearch(arr, personCount, target);
 
 /// Return the index of the record if found
+    if (ii != -1) {
+        cout << "Display personal information of 22222 " << endl << endl;
+        displayPersonInfo(arr, personCount, ii);
+    }
 
+/// Read data from input file to the array again so that the IDs are not sorted.
+    cout << endl << "Before Selection Sort" << endl << endl;
+
+    displayAll(arr, personCount);
+
+    cout << endl << "After Selection Sort" << endl << endl;
+
+    selectionSort(arr, personCount);
+
+    ii = binarySearch(arr, 0, personCount, target);
     if (ii != -1) {
         cout << "Display personal information of 22222 " << endl;
         displayPersonInfo(arr, personCount, ii);
     }
-/// Read data from input file to the array again so that the IDs are not sorted.
-    cout << "Before Selection Sort" << endl; displayAll(arr, personCount); selectionSort(arr, personCount);
-    cout << "After Selection Sort" << endl; displayAll(arr, personCount);
-//    ii = binary_search(arr, personCount, target);
-//    if (ii != -1) {
-//        cout << "Display personal information of 22222 " << endl;
-//        displayPersonInfo(arr, personCount, ii);
-//    }
     return 0;
 }
