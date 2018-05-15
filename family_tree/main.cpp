@@ -44,17 +44,32 @@ public:
         }
     }
 
-    void displayAll(){
-        cout << "Father: " << name << endl << "Children: ";
+    void displayDescendants(){
+        displayChildren();
         for (int i = 0; i < children.size(); ++i) {
-            cout << children[i]->name << " ";
+            children[i]->displayDescendants();
         }
+    }
+
+    void displayChildren(){
+        if (children.size() > 0) {
+            cout << "Father: " << name << endl << "Children: ";
+            for (int i = 0; i < children.size(); ++i) {
+                cout << children[i]->name;
+                if (i < children.size()-1){
+                    cout << ", ";
+                }
+            }
+            cout << endl;
+            cout << endl;
+        };
+
     }
 };
 
 int main() {
     Person Noah("Noah");
-    Noah.displayAll();
+    Noah.displayDescendants();
     return 0;
 }
 
