@@ -1,0 +1,55 @@
+/// Goal: Learn the life span of local variable and dynamically allocated data
+/// 
+#include <iostream>
+
+using namespace std;
+
+int * intFunc()
+{
+   int * r = new int;
+   *r = 1000;
+   return r;
+}
+
+void intFunc2(int * tt)
+{
+   cout << "Print inside the function intFunc2()" << endl;
+   cout << "*tt = " << *tt << endl;
+   return;
+}
+
+int main()
+{
+    {
+        int ii = 0;
+    }
+
+    cout << "#1 Is integer variable ii still available here?" << endl;
+    /// Step 1: Uncomment the following line and see what happen
+    /// cout << "ii = " << i;
+
+    int * pp = nullptr;
+    {
+        int * qq = new int;
+        *qq = 999;
+        pp = qq;
+    }
+
+    cout << "#2 Is integer value 999 declared inside the {} above still available here?" << endl;
+    /// Step 2: Uncomment the following two lines and see what happen
+    /// cout << "*pp = " << *pp << endl;
+    /// delete pp;
+
+
+    cout << "#3 Is integer value 1000 assigned inside the function intFunc() still available here?" << endl;
+    /// Step 3: Uncomment the following 3 lines and see what happen
+    /// int * ss = intFunc();
+    /// cout << "*ss = " << *ss << endl;
+
+    cout << "#4 Is integer value 1000 declared inside the function intFunc() can be used in another function?" << endl;
+    /// Step 4: Uncomment the following 2 lines and see what happen
+    /// intFunc2(ss);
+    /// delete ss;
+
+    return 0;
+}

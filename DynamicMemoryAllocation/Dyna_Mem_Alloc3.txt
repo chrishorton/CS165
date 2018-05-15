@@ -1,0 +1,65 @@
+/// Goal: Learn how to dynamically create an array of objects in a function and pass
+///       it back to main() so that main() may use or display the data. main() will have to
+///       be responsible for deleting the array. (Can you see that it is such a big hassle
+///       to maintain the code?)
+#include <iostream>
+
+using namespace std;
+
+struct StudRecord
+{
+    int ID = 0;
+    string lastName = "";
+    string firstName = "";
+    string phoneNumber = "";
+};
+
+const int SIZE = 1000;
+const int SIZE3 = 3;
+
+
+
+int main()
+{
+    /// array of 1000 StudRecord objects
+    StudRecord arr1[SIZE];
+
+    cout << "Size of arr1:" << sizeof(arr1) << endl;
+
+    /// array of 1000 StudRecord pointers
+    StudRecord * arr2[SIZE] = {nullptr};
+
+    cout << "Size of arr2:" << sizeof(arr2) << endl;
+
+    /// Q1: What are the sizes of arr1 and arr2? Why?
+
+    arr2[0] = new StudRecord;
+
+    /// Q2: Now the first node is constructed. Uncomment the following line and see if the size if different?
+    /// cout << "Size of arr2:" << sizeof(arr2) << endl;
+
+
+    /// Q3: How can we "see" the size of the first node in the array?
+    /// Hint: We can see the size of a StudRecord node and the size of its pointer in the following ways.
+    /// StudRecord * p = new StudRecord;
+    /// cout << "Size of *p:" << sizeof(*p) << endl;
+    /// cout << "Size of p:" << sizeof(p) << endl;
+
+    /// Q4: How can we delete the first node and release the memory?
+    ///
+
+    /// Q5: Implement a function which creates an array of 3 StudRecord nodes. Hard-code some values and assign
+    /// them to these three nodes. Call the function from main() and pass the name of the array back to the caller
+    /// function. Display the data of the nodes in main() like the following.
+    ///
+    /// ID: 123456
+    /// First Name:   John
+    /// Last Name:    Johnson
+    /// Phone Number: (925)-123-4567
+    ///
+
+
+
+
+    return 0;
+}
